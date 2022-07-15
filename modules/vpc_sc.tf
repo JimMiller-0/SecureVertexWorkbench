@@ -1,4 +1,4 @@
-
+# this template creates the access level, service perimeter, and policies for VPC Service Controls placed around workbench
 provider "google" {
   version = "~> 3.19.0"
 }

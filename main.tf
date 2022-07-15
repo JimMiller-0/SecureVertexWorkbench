@@ -1,3 +1,4 @@
+# this template orchastrates the build  for work bench and all other components
 provider "google" {
 }
 

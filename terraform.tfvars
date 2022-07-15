@@ -1,5 +1,4 @@
-
-
+# set specific variables here for your own deployment
 variable "organization_id" {
   type        = string
   description = "organization id required"

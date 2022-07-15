@@ -1,3 +1,4 @@
+# this template creates the network for the workbench instance to live in
 module "vpc" {
     source  = "terraform-google-modules/network/google"
     version = "~> 4.0"
