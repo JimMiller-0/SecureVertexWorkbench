@@ -20,7 +20,7 @@ variable "project_id" {
 variable "enable_apis" {
   description = "Which APIs to enable for this project."
   type        = list(string)
-  default     = ["compute.googleapis.com", "cloudbilling.googleapis.com"]
+  default     = ["compute.googleapis.com", "cloudbilling.googleapis.com", "iam.googleapis.com", "notebooks.googleapis.com", "dns.googleapis.com", "artifactregistry.googleapis.com"]
 }
 variable "cloud_storage_bucket_name" {
  type        = string
