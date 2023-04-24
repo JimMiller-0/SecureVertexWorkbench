@@ -12,20 +12,15 @@ variable "demo_folder_name" {
  default     = "${organization_id}-vpc-sc-terraform-demo"
  description = "unique name of demo folder to be created"
 }
-variable "data_project_id" {
+variable "project_id" {
  type        = string
  default     = "${organization_id}-data-project"
  description = "globally unique id of data project to be created"
 }
-variable "consumer_project_a_id" {
- type        = string
- default     = "${organization_id}-consumer-project-a"
- description = "globally unique id of consumer project a to be created"
-}
-variable "consumer_project_b_id" {
- type        = string
- default     = "${organization_id}-consumer-project-b"
- description = "globally unique id of consumer project b to be created"
+variable "enable_apis" {
+  description = "Which APIs to enable for this project."
+  type        = list(string)
+  default     = ["compute.googleapis.com", "cloudbilling.googleapis.com"]
 }
 variable "cloud_storage_bucket_name" {
  type        = string
