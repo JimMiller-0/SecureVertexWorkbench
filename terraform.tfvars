@@ -14,7 +14,7 @@ variable "demo_folder_name" {
 }
 variable "project_id" {
  type        = string
- default     = "${organization_id}-data-project"
+ default     = "${organization_id}-vertex-project"
  description = "globally unique id of data project to be created"
 }
 variable "enable_apis" {

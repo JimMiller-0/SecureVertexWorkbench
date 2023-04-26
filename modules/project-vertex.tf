@@ -1,5 +1,5 @@
 // Create a basic project.
-resource "google_project" "project" {
+resource "google_project" "vertex-project" {
   billing_account     = var.billing_account
   folder_id           = var.folder_id
   labels              = var.labels
@@ -13,7 +13,7 @@ resource "google_project" "project" {
   skip_delete = var.skip_delete
 }
 
-// Enable the requested APIs.
+// Enable the requested APIs. APIs are set in the tfvars file
 resource "google_project_service" "gcp_apis" {
   count   = length(var.enable_apis)
   project = google_project.project.id
