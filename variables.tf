@@ -1,6 +1,8 @@
 # set specific variables here for your own deployment
 
-/*
+/******************************
+    REQUIRED TO CHANGE
+******************************/
 variable "organization_id" {
   type        = string
   description = "organization id required"
@@ -19,6 +21,11 @@ variable "project_id" {
  default     = "${organization_id}-vertex-project"
  description = "globally unique id of data project to be created"
 }
+
+
+/*****************************
+RECOMMENDED DEFAULTS - ONLY CHANGE IF YOU HAVE A VALID REASON TO
+*****************************/
 variable "enable_apis" {
   description = "Which APIs to enable for this project."
   type        = list(string)
@@ -34,4 +41,3 @@ variable "create_default_access_policy" {
  default     = false
  description = "Whether a default access policy needs to be created for the organization. If one already exists, this should be set to false."
 }
-*/
