@@ -14,7 +14,7 @@ module "vpc" {
         {
             subnet_name               = "securevertex-subnet-a"
             subnet_ip                 = "10.10.10.0/24"
-            subnet_region             = "us-central-1"
+            subnet_region             = var.region #default: us-central1
             subnet_private_access     = "false"
             subnet_flow_logs          = "true"
             subnet_flow_logs_interval = "INTERVAL_30_SEC"
@@ -24,7 +24,7 @@ module "vpc" {
         {
             subnet_name               = "securevertex-subnet-b"
             subnet_ip                 = "10.10.20.0/24"
-            subnet_region             = "us-central-1"
+            subnet_region             = var.region #default: us-central1
             subnet_private_access     = "false"
             subnet_flow_logs          = "true"
             subnet_flow_logs_interval = "INTERVAL_30_SEC"

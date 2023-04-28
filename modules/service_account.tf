@@ -8,8 +8,7 @@ resource "google_service_account" "sa" {
 }
 
 resource "google_project_iam_member" "sa_iam" {
-  for_each = toset([role/compute.admin,
-                    role/serviceAccountUser])
+  for_each = toset(var.roles) #default: [role/compute.admin, role/serviceAccountUser]
 
   project = var.project_id
   role    = each.value
