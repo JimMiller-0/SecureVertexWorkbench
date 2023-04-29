@@ -10,7 +10,7 @@ resource "google_notebooks_instance" "notebook_instance_vm" {
   provider = google
 
   name         = var.name #default: securevertex-notebook
-  location     = "${var.region}-a" #default: us-central-1
+  location     = "${var.region}-a" #default: us-central1
   machine_type = var.machine_type #default: c2d-standard-2 (2 vCPU, 8GB RAM)
 
 /**
@@ -48,12 +48,13 @@ However the terraform would look something like this:
 
   boot_disk_type      = var.boot_disk_type #default: PD_SSD
   boot_disk_size_gb   = var.boot_disk_size_gb #default 100 GB
-  data_disk_type      = var.data_disk_type
-  data_disk_size_gb   = var.data_disk_size_gb
-  no_remove_data_disk = var.retain_disk
+  data_disk_type      = var.data_disk_type #default: PD_SSD
+  data_disk_size_gb   = var.data_disk_size_gb #default: 100 GB
+  no_remove_data_disk = var.retain_disk #default: false
+  disk_encryption     = var.disk_encryption #default: GMEK
 
   no_public_ip    = var.no_public_ip #default: false
-  no_proxy_access = false
+  no_proxy_access = var.no_proxy_access #default: false
 
   network = data.google_compute_network.notebook_network.self_link
   subnet  = length(var.notebook_sub_network_self_link) > 0 ? var.notebook_sub_network_self_link : element(data.google_compute_network.notebook_network.subnetworks_self_links, 0)

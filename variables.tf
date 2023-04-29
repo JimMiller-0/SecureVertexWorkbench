@@ -30,7 +30,9 @@ variable "project_name" {
 
 
 /*****************************
-RECOMMENDED DEFAULTS - ONLY CHANGE IF YOU HAVE A VALID REASON TO
+RECOMMENDED DEFAULTS - DO NOT CHANGE
+
+unless you really really want to :)
 *****************************/
 variable "enable_apis" {
   description = "Which APIs to enable for this project."
@@ -64,19 +66,6 @@ default       = true
     
 }
 
-variable "enable_gpu" {
-type          = bool
-description   = "sets gpu enablement on the compute instance for vertex workbench"
-default       = false
-    
-}
-
-variable "no_public_ip" {
-type          = bool
-description   = "controls if an external IP is attached to the compute instance"
-default       = false 
-}
-
 variable "boot_disk_type" {
 type          = string
 description   = "Possible disk types for notebook instances. Possible values are: DISK_TYPE_UNSPECIFIED, PD_STANDARD, PD_SSD, PD_BALANCED, PD_EXTREME"
@@ -89,11 +78,63 @@ description   = "The size of the boot disk in GB attached to this instance, up t
 default       = "100"
 }
 
+variable "data_disk_type" {
+type          = string
+description   = "Possible disk types for notebook instances. Possible values are: DISK_TYPE_UNSPECIFIED, PD_STANDARD, PD_SSD, PD_BALANCED, PD_EXTREME"
+default       = "PD_SSD"
+}
+
+variable "data_disk_size_gb" {
+type          = string
+description   = "The size of the boot disk in GB attached to this instance, up to a maximum of 64000 GB (64 TB). The minimum recommended value is 100 GB. If not specified, this defaults to 100."
+default       = "100"
+}
+
+variable "data_disk_size_gb" {
+type          = bool
+description   = "If true, the data disk will not be auto deleted when deleting the instance."
+default       = false
+}
+
+variable "disk_encryption" {
+type          = string
+description   = "Disk encryption method used on the boot and data disks, defaults to GMEK. Possible values are: DISK_ENCRYPTION_UNSPECIFIED, GMEK, CMEK"
+default       = "GMEK"
+}
+
+variable "no_public_ip" {
+type          = bool
+description   = "No public IP will be assigned to this instance"
+default       = false 
+}
+
+variable "no_proxy_access" {
+type          = bool
+description   = "The notebook instance will not register with the proxy"
+default       = false 
+}
+
+
+/*****************************
+NOT USED IN THIS TEMPLATE BUT ARE CONFIGURABLE FOR VERTEX AI WORKBENCH
+
+
+variable "enable_gpu" {
+type          = bool
+description   = "sets gpu enablement on the compute instance for vertex workbench"
+default       = false
+    
+}
+
+variable "kms_key" {
+type          = string
+description   = "The KMS key used to encrypt the disks, only applicable if diskEncryption is CMEK. Format: projects/{project_id}/locations/{location}/keyRings/{key_ring_id}/cryptoKeys/{key_id}"
+
+}
 
 
 
-
-
+*****************************/
 
 variable "cloud_storage_bucket_name" {
  type        = string
