@@ -56,8 +56,8 @@ However the terraform would look something like this:
   no_public_ip    = var.no_public_ip #default: false
   no_proxy_access = var.no_proxy_access #default: false
 
-  network = data.google_compute_network.notebook_network.self_link
-  subnet  = length(var.notebook_sub_network_self_link) > 0 ? var.notebook_sub_network_self_link : element(data.google_compute_network.notebook_network.subnetworks_self_links, 0)
+  network = module.vpc.network_id   
+  subnet  = module.vpc.subnets_ids
 
   post_startup_script = local.post_startup_script_url
 
