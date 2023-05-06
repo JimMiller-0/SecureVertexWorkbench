@@ -107,7 +107,7 @@ description   = "The size of the boot disk in GB attached to this instance, up t
 default       = "100"
 }
 
-variable "data_disk_size_gb" {
+variable "no_remove_data_disk" {
 type          = bool
 description   = "If true, the data disk will not be auto deleted when deleting the instance."
 default       = false
