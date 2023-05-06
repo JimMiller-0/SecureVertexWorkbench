@@ -24,7 +24,7 @@ resource "google_service_account" "sa" {
 }
 
 resource "google_project_iam_member" "sa_iam" {
-  for_each = toset(var.roles) #default: [role/compute.admin, role/serviceAccountUser]  -- note that storage permission is added in the bucket iam binding
+  for_each = toset(var.roles) #default: [roles/compute.admin, roles/serviceAccountUser]  -- note that storage permission is added in the bucket iam binding
 
   project = google_project.vertex-project.project_id
   role    = each.value
