@@ -32,6 +32,7 @@ resource "google_compute_subnetwork" "securevertex-subnet-a" {
                 flow_sampling             = 0.7
                 metadata                  = "INCLUDE_ALL_METADATA"
         }
+}        
 
  resource "google_compute_subnetwork" "securevertex-subnet-b" {
             name                          = "securevertex-subnet-b"
