@@ -18,7 +18,7 @@
 resource "google_project" "vertex-project" {
   billing_account     = var.billing_account
   org_id              = var.organization_id
-  folder_id           = var.folder_id
+  //folder_id           = var.folder_id
   labels              = var.labels
   name                = var.project_name
   project_id            = "${var.project_name}-${random_id.random_suffix.hex}"
