@@ -38,6 +38,20 @@ variable "enable_apis" {
   default     = ["compute.googleapis.com", "cloudbilling.googleapis.com", "iam.googleapis.com", "notebooks.googleapis.com", "dns.googleapis.com", "artifactregistry.googleapis.com", "storage.googleapis.com"]
 }
 
+variable "labels" {
+  description = "A set of key/value label pairs to assign to the project."
+  type        = map(string)
+
+  default = {
+    environment = "development"
+  }
+}
+
+variable "skip_delete" {
+  description = " If true, the Terraform resource can be deleted without deleting the Project via the Google API."
+  default     = "false"
+}
+
 variable "region" {
     description = "what region to deploy to"
     type        = string

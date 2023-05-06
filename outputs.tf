@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+/*
 output "email" {
   description = "The service account email."
   value       = module.service_accounts.service_account.email
@@ -23,8 +24,9 @@ output "iam_email" {
   description = "The service account IAM-format email."
   value       = module.service_accounts.iam_email
 }
+*/
 
 output "proxy_uri" {
     description = "The proxy endpoint that is used to access the Jupyter notebook. Only returned when the resource is in a PROVISIONED state. If needed you can utilize terraform apply -refresh-only to await the population of this value."
-    value = module.google_notebooks_instance.proxy_uri
+    value = google_notebooks_instance.vertex_workbench_instance.proxy_uri
 }

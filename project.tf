@@ -36,7 +36,7 @@ resource "random_id" "random_suffix" {
 // Enable the requested APIs. APIs are set in the tfvars file
 resource "google_project_service" "gcp_apis" {
   count   = length(var.enable_apis)
-  project = google_project.project.id
+  project = google_project.vertex-project.project_id
   service = element(var.enable_apis, count.index)
 }
 
