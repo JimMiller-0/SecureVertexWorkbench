@@ -70,6 +70,13 @@ variable "roles" {
   default     = ["role/compute.admin", "role/serviceAccountUser"]
 }
 
+variable "workbench_name" {
+type          = string
+description   = "name for workbench instance"
+default       = "securevertex-notebook"
+    
+}
+
 variable "machine_type" {
 type          = string
 description   = "compute engine machine type that workbench will run on"
@@ -95,6 +102,13 @@ variable "source_image_project" {
   description = "Google Cloud project with OS Image"
   type        = string
   default     = "deeplearning-platform-release"
+}
+
+variable "enable_gpu" {
+type          = bool
+description   = "sets gpu enablement on the compute instance for vertex workbench"
+default       = false
+    
 }
 
 variable "boot_disk_type" {
@@ -148,14 +162,6 @@ default       = false
 
 /*****************************
 NOT USED IN THIS TEMPLATE BUT ARE CONFIGURABLE FOR VERTEX AI WORKBENCH
-
-
-variable "enable_gpu" {
-type          = bool
-description   = "sets gpu enablement on the compute instance for vertex workbench"
-default       = false
-    
-}
 
 variable "kms_key" {
 type          = string

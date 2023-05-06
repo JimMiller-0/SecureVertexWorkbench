@@ -25,7 +25,7 @@
 ************************************/ 
 resource "google_notebooks_instance" "vertex_workbench_instance" {
   project      = google_project.vertex-project.project_id
-  name         = var.name #default: securevertex-notebook
+  name         = var.workbench_name #default: securevertex-notebook
   location     = var.zone #default: us-central1-a
   machine_type = var.machine_type #default: c2d-standard-2 (2 vCPU, 8GB RAM)
   vm_image {
@@ -63,7 +63,7 @@ However the terraform would look something like this:
   boot_disk_size_gb   = var.boot_disk_size_gb #default 100 GB
   data_disk_type      = var.data_disk_type #default: PD_SSD
   data_disk_size_gb   = var.data_disk_size_gb #default: 100 GB
-  no_remove_data_disk = var.retain_disk #default: false
+  no_remove_data_disk = var.no_remove_data_disk #default: false
   disk_encryption     = var.disk_encryption #default: GMEK
 
   no_public_ip    = var.no_public_ip #default: false
