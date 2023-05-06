@@ -154,10 +154,6 @@ variable "project_id" {
  description = "globally unique id of vertex workbench project to be created"
 }
 
-
-
-*****************************/
-
 variable "cloud_storage_bucket_name" {
  type        = string
  default     = "${data_project_id}-vpc-sc-storage-bucket"
@@ -168,3 +164,7 @@ variable "create_default_access_policy" {
  default     = false
  description = "Whether a default access policy needs to be created for the organization. If one already exists, this should be set to false."
 }
+
+
+*****************************/
+
