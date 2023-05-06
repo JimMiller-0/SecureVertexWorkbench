@@ -22,10 +22,9 @@
     all variables and their defaults can be
     can be found in variables.tf under
     the root directory
-************************************/
+************************************/ 
 resource "google_notebooks_instance" "notebook_instance_vm" {
-  provider = google
-
+  project = google_project.vertex-project.project_id
   name         = var.name #default: securevertex-notebook
   location     = "${var.region}-a" #default: us-central1
   machine_type = var.machine_type #default: c2d-standard-2 (2 vCPU, 8GB RAM)
@@ -59,7 +58,7 @@ However the terraform would look something like this:
   
 ******************************************************/
 
-  service_account = length(var.service_account_email) > 0 ? var.service_account_email : local.compute_engine_service_account 
+
 
   install_gpu_driver = var.enable_gpu #default: false
 
