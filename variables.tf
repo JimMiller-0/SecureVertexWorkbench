@@ -12,18 +12,19 @@ variable "billing_account" {
  description = "billing account required"
 }
 
-variable "project_name" {
- type        = string
- default     = "vertex-project"
- description = "vertex workbench project to be created"
-}
-
 
 /*****************************
 RECOMMENDED DEFAULTS - DO NOT CHANGE
 
 unless you really really want to :)
 *****************************/
+
+variable "project_name" {
+ type        = string
+ default     = "vertex-project"
+ description = "vertex workbench project to be created"
+}
+
 
 variable "folder_id" {
  type        = string
