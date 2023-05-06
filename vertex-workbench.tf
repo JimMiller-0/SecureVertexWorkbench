@@ -70,7 +70,7 @@ However the terraform would look something like this:
   no_proxy_access = var.no_proxy_access #default: false
 
   network = google_compute_network.vpc_network.id
-  subnet  = google_compute_subnetwork.securevertex-subnet-a
+  subnet  = google_compute_subnetwork.securevertex-subnet-a.id
 
   //post_startup_script = local.post_startup_script_url
 
