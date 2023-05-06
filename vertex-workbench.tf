@@ -69,8 +69,8 @@ However the terraform would look something like this:
   no_public_ip    = var.no_public_ip #default: false
   no_proxy_access = var.no_proxy_access #default: false
 
-  network = module.vpc.network_id   
-  subnet  = module.vpc.subnets_ids
+  network = google_compute_network.vpc_network.id
+  subnet  = google_compute_subnetwork.securevertex-subnet-a
 
   //post_startup_script = local.post_startup_script_url
 
