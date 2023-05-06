@@ -11,16 +11,6 @@ variable "billing_account" {
  type        = string
  description = "billing account required"
 }
-variable "folder_id" {
- type        = string
- default     = "${organization_id}-vpc-sc-terraform-demo"
- description = "unique name of demo folder to be created"
-}
-variable "project_id" {
- type        = string
- default     = "${organization_id}-vertex-project"
- description = "globally unique id of vertex workbench project to be created"
-}
 
 variable "project_name" {
  type        = string
@@ -34,10 +24,17 @@ RECOMMENDED DEFAULTS - DO NOT CHANGE
 
 unless you really really want to :)
 *****************************/
+
+variable "folder_id" {
+ type        = string
+ default     = "${organization_id}-vpc-sc-terraform-demo"
+ description = "unique name of demo folder to be created"
+}
+
 variable "enable_apis" {
   description = "Which APIs to enable for this project."
   type        = list(string)
-  default     = ["compute.googleapis.com", "cloudbilling.googleapis.com", "iam.googleapis.com", "notebooks.googleapis.com", "dns.googleapis.com", "artifactregistry.googleapis.com"]
+  default     = ["compute.googleapis.com", "cloudbilling.googleapis.com", "iam.googleapis.com", "notebooks.googleapis.com", "dns.googleapis.com", "artifactregistry.googleapis.com", "storage.googleapis.com"]
 }
 
 variable "region" {
@@ -130,6 +127,12 @@ variable "kms_key" {
 type          = string
 description   = "The KMS key used to encrypt the disks, only applicable if diskEncryption is CMEK. Format: projects/{project_id}/locations/{location}/keyRings/{key_ring_id}/cryptoKeys/{key_id}"
 
+}
+
+variable "project_id" {
+ type        = string
+ default     = "${organization_id}-vertex-project"
+ description = "globally unique id of vertex workbench project to be created"
 }
 
 
