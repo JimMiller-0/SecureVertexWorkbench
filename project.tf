@@ -17,6 +17,7 @@
 // Create a basic project.
 resource "google_project" "vertex-project" {
   billing_account     = var.billing_account
+  org_id              = var.organization_id
   folder_id           = var.folder_id
   labels              = var.labels
   name                = var.project_name
@@ -24,7 +25,7 @@ resource "google_project" "vertex-project" {
 
   // Only one of `org_id` or `folder_id` may be specified, so we prefer the folder here.
   // Note that `organization_id` is required, making this safe.
-  org_id = var.folder_id == "" ? var.organization_id : var.folder_id
+  //org_id = var.folder_id == "" ? var.organization_id : var.folder_id
 
   skip_delete = var.skip_delete
 }
