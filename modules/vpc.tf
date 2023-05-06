@@ -36,6 +36,57 @@ module "vpc" {
 
 }
 
+resource "google_compute_firewall" "egress" {
+  project            = google_project.vertex-project.project_id
+  name               = "deny-all-egress"
+  description        = "Block all egress"
+  network            = module.vpc.network_name
+  priority           = 1000
+  direction          = "EGRESS"
+  destination_ranges = ["0.0.0.0/0"]
+  deny {
+    protocol = "tcp"
+  }
+}
 
+resource "google_compute_firewall" "ingress" {
+  project       = google_project.vertex-project.project_id
+  name          = "deny-all-ingress"
+  description   = "Block all Ingress"
+  network       = module.vpc.network_name
+  priority      = 1000
+  direction     = "INGRESS"
+  source_ranges = ["0.0.0.0/0"]
+  deny {
+    protocol = "tcp"
+  }
+}
 
+resource "google_compute_firewall" "googleapi_egress" {
+  project            = google_project.vertex-project.project_id
+  name               = "allow-googleapi-egress"
+  description        = "Allow connectivity to storage"
+  network            = module.vpc.network_name
+  priority           = 999
+  direction          = "EGRESS"
+  destination_ranges = ["199.36.153.8/30"]
+  allow {
+    protocol = "tcp"
+    ports    = ["443", "8080", "80"]
+  }
+}
+
+resource "google_compute_firewall" "www_egress" {
+  project            = google_project.vertex-project.project_id
+  name               = "allow-www-egress"
+  description        = "Allow connectivity to web"
+  network            = module.vpc.network_name
+  priority           = 998
+  direction          = "EGRESS"
+  destination_ranges = ["0.0.0.0/0"]
+  allow {
+    protocol = "tcp"
+    ports    = ["443"]
+  }
+}
 
