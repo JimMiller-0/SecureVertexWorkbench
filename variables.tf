@@ -35,7 +35,7 @@ variable "folder_id" {
 variable "enable_apis" {
   description = "Which APIs to enable for this project."
   type        = list(string)
-  default     = ["compute.googleapis.com", "cloudbilling.googleapis.com", "iam.googleapis.com", "notebooks.googleapis.com", "dns.googleapis.com", "artifactregistry.googleapis.com", "storage.googleapis.com"]
+  default     = ["compute.googleapis.com", "cloudbilling.googleapis.com", "iam.googleapis.com", "notebooks.googleapis.com", "dns.googleapis.com", "artifactregistry.googleapis.com", "storage.googleapis.com", "cloudresourcemanager.googleapis.com"]
 }
 
 variable "labels" {
