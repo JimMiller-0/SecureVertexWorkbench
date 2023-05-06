@@ -43,6 +43,12 @@ variable "region" {
     default     = "us-central1"
 }
 
+variable "zone" {
+  description = "The GCP zone to create the instance in"
+  type        = string
+  default     = "us-central1-a"
+}
+
 variable "roles" {
   type        = list(string)
   description = "The roles that will be granted to the service account."
@@ -61,6 +67,19 @@ type          = bool
 description   = "compute engine machine type that workbench will run on"
 default       = true
     
+}
+
+variable "source_image_family" {
+  description = "The OS Image family"
+  type        = string
+  default     = "common-cpu-notebooks-ubuntu-2004"
+  #gcloud compute images list --project deeplearning-platform-release
+}
+
+variable "source_image_project" {
+  description = "Google Cloud project with OS Image"
+  type        = string
+  default     = "deeplearning-platform-release"
 }
 
 variable "boot_disk_type" {

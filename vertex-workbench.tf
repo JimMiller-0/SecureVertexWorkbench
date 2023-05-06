@@ -23,18 +23,15 @@
     can be found in variables.tf under
     the root directory
 ************************************/ 
-resource "google_notebooks_instance" "notebook_instance_vm" {
-  project = google_project.vertex-project.project_id
+resource "google_notebooks_instance" "vertex_workbench_instance" {
+  project      = google_project.vertex-project.project_id
   name         = var.name #default: securevertex-notebook
-  location     = "${var.region}-a" #default: us-central1
+  location     = var.zone #default: us-central1-a
   machine_type = var.machine_type #default: c2d-standard-2 (2 vCPU, 8GB RAM)
-
-/**
   vm_image {
-    project      = var.vm_image_project
-    image_family = var.vm_image_image_family
+    project      = var.source_image_project #default: deeplearning-platform-release
+    image_family = var.source_image_family #default: common-cpu-notebooks-ubuntu-2004
   }
-**/
 
   shielded_instance_config {
     enable_secure_boot          = var.secure_boot #default: true
@@ -75,27 +72,30 @@ However the terraform would look something like this:
   network = module.vpc.network_id   
   subnet  = module.vpc.subnets_ids
 
-  post_startup_script = local.post_startup_script_url
+  //post_startup_script = local.post_startup_script_url
 
-  labels = merge(local.required_labels, var.labels)
+  //labels = merge(local.required_labels, var.labels)
 
-  metadata = (
-    var.disable_downloads && var.block_project_wide_ssh_keys ? #Check both of these together to not force rebuild of existing notebooks
-    {
-      terraform                  = "true"
-      proxy-mode                 = "service_account"
-      notebook-disable-downloads = true
-      block-project-ssh-keys     = true
-    } :
-    var.disable_downloads ?
-    {
-      terraform                  = "true"
-      proxy-mode                 = "service_account"
-      notebook-disable-downloads = true
-    } :
-    {
-      terraform  = "true"
-      proxy-mode = "service_account"
-    }
-  )
+  metadata = {
+    notebook-disable-root      = "true"
+    notebook-disable-downloads = "true"
+    notebook-disable-nbconvert = "true"
+  }
+
+
+depends_on = [google_storage_bucket.bucket, time_sleep.wait_for_org_policy]  
+}
+
+resource "null_resource" "set_secure_boot" {
+  provisioner "local-exec" {
+    command = <<EOF
+    gcloud config set project ${google_project.vertex-project.project_id}
+    gcloud compute instances stop ${google_notebooks_instance.vertex_workbench_instance.name} --zone ${var.zone}
+    sleep 120
+    gcloud compute instances update ${google_notebooks_instance.vertex_workbench_instance.name} --shielded-secure-boot --zone ${var.zone}
+    gcloud compute instances start ${google_notebooks_instance.vertex_workbench_instance.name} --zone ${var.zone}
+    gcloud compute instances update ${google_notebooks_instance.vertex_workbench_instance.name} --shielded-learn-integrity-policy --zone ${var.zone}
+    EOF
+  }
+  depends_on = [google_notebooks_instance.vertex_workbench_instance]
 }
