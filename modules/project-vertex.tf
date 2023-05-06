@@ -29,9 +29,29 @@ resource "google_project" "vertex-project" {
   skip_delete = var.skip_delete
 }
 
+resource "random_id" "random_suffix" {
+  byte_length = 4
+}
+
 // Enable the requested APIs. APIs are set in the tfvars file
 resource "google_project_service" "gcp_apis" {
   count   = length(var.enable_apis)
   project = google_project.project.id
   service = element(var.enable_apis, count.index)
+}
+
+// Set Org policies to allow Vertex AI Workbench configuration
+
+module "org-policy-requireShieldedVm" {
+  source      = "terraform-google-modules/org-policy/google"
+  policy_for  = "project"
+  project_id  = google_project.vertex-project.project_id
+  constraint  = "compute.requireShieldedVm"
+  policy_type = "boolean"
+  enforce     = false
+}
+
+resource "time_sleep" "wait_for_org_policy" {
+  depends_on      = [module.org-policy-requireShieldedVm]
+  create_duration = "90s"
 }

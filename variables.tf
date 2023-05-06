@@ -27,8 +27,8 @@ unless you really really want to :)
 
 variable "folder_id" {
  type        = string
- default     = "${organization_id}-vpc-sc-terraform-demo"
- description = "unique name of demo folder to be created"
+ default     = ""
+ description = "A folder to create this project under. If none is provided, the project will be created under the organization"
 }
 
 variable "enable_apis" {
