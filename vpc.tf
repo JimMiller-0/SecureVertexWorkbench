@@ -16,17 +16,19 @@
 
 # this template creates the network for the workbench instance to live in
 resource "google_compute_network" "vpc_network" {
-    project_id   =  google_project.vertex-project.project_id
+    project  =  google_project.vertex-project.project_id
     name = "securevertex-vpc"
     routing_mode = "REGIONAL"
     auto_create_subnetworks = false
 }
 
 resource "google_compute_subnetwork" "securevertex-subnet-a" {
+            project  =  google_project.vertex-project.project_id
             name                          = "securevertex-subnet-a"
             ip_cidr_range                 = "10.10.10.0/24"
             region                        = var.region #default: us-central1
             private_ip_google_access      = "false"
+            network                       = google_compute_network.vpc_network.name
             log_config {            
                 aggregation_interval      = "INTERVAL_30_SEC"
                 flow_sampling             = 0.7
@@ -39,6 +41,7 @@ resource "google_compute_subnetwork" "securevertex-subnet-a" {
             ip_cidr_range                 = "10.10.20.0/24"
             region                        = var.region #default: us-central1
             private_ip_google_access      = "false"
+            network                       = google_compute_network.vpc_network.name
             log_config {            
                 aggregation_interval      = "INTERVAL_30_SEC"
                 flow_sampling             = 0.7
