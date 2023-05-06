@@ -67,7 +67,7 @@ variable "zone" {
 variable "roles" {
   type        = list(string)
   description = "The roles that will be granted to the service account."
-  default     = ["roles/compute.admin", "roles/serviceAccountUser"]
+  default     = ["roles/compute.admin", "roles/iam.serviceAccountUser"]
 }
 
 variable "workbench_name" {
