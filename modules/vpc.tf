@@ -3,7 +3,7 @@ module "vpc" {
     source  = "terraform-google-modules/network/google"
     version = "~> 4.0"
 
-    project_id   = var.project_id
+    project_id   =  google_project.vertex-project.project_id
     network_name = "securevertex-vpc"
     routing_mode = "REGIONAL"
     shared_vpc_host = false
