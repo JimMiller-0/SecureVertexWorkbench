@@ -51,7 +51,16 @@ module "org-policy-requireShieldedVm" {
   enforce     = false
 }
 
+module "org-policy-vmExternalIpAccess" {
+  source      = "terraform-google-modules/org-policy/google"
+  policy_for  = "project"
+  project_id  = google_project.vertex-project.project_id
+  constraint  = "compute.vmExternalIpAccess"
+  policy_type = "list"
+  enforce     = false
+}
+
 resource "time_sleep" "wait_for_org_policy" {
-  depends_on      = [module.org-policy-requireShieldedVm]
+  depends_on      = [module.org-policy-requireShieldedVm, module.org-policy-vmExternalIpAccess]
   create_duration = "90s"
 }
