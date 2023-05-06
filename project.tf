@@ -62,6 +62,6 @@ module "org-policy-vmExternalIpAccess" {
 }
 
 resource "time_sleep" "wait_for_org_policy" {
-  depends_on      = [module.org-policy-requireShieldedVm, module.org-policy-vmExternalIpAccess]
-  create_duration = "90s"
+  depends_on      = [module.org-policy-requireShieldedVm, module.org-policy-vmExternalIpAccess, google_project_service.gcp_apis]
+  create_duration = "180s"
 }
