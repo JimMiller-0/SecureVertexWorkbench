@@ -37,6 +37,7 @@ resource "google_compute_subnetwork" "securevertex-subnet-a" {
 }        
 
  resource "google_compute_subnetwork" "securevertex-subnet-b" {
+            project                       =  google_project.vertex-project.project_id
             name                          = "securevertex-subnet-b"
             ip_cidr_range                 = "10.10.20.0/24"
             region                        = var.region #default: us-central1
