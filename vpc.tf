@@ -42,7 +42,8 @@ resource "google_compute_subnetwork" "securevertex-subnet-a" {
                 aggregation_interval      = "INTERVAL_30_SEC"
                 flow_sampling             = 0.7
                 metadata                  = "INCLUDE_ALL_METADATA"
-        }
+                }
+ }
     
 resource "google_compute_firewall" "egress" {
   project            = google_project.vertex-project.project_id
