@@ -12,7 +12,7 @@ This Cloud Security Architecture uses terraform to setup Vertex AI Wrokbench dem
 ## Demo Architecture Diagram
 The image below describes the architecture of CSA Vertex AI Workbench demo to deploy a secure Workbench instance for development purposes.
 
-![Architecture Diagram](./fw-microseg-arch.png)
+![Architecture Diagram](./SecureVertexAIWorkbench.png)
 
 
 
