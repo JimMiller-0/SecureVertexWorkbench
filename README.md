@@ -2,7 +2,7 @@
 
 ```
 This is not an officially supported Google product.
-This code creates PoC demo environment for CSA Network Firewall microsegmentation. This demo code is not built for production workload. 
+This code creates PoC demo environment for CSA Secure Vertex AI Workbench. This demo code is not built for production workload. 
 ```
 
 # Demo Guide
