@@ -46,6 +46,7 @@ resource "google_compute_router" "vertex-vpc-router" {
 
 resource "google_compute_router_nat" "vertex-nat" {
   name                               = "vertex-nat"
+  project                            = google_project.vertex-project.project_id
   router                             = google_compute_router.vertex-vpc-router.name
   region                             = var.region #default: us-central1
   nat_ip_allocate_option             = "AUTO_ONLY"
