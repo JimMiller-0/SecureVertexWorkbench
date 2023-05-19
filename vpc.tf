@@ -45,13 +45,14 @@ resource "google_compute_router" "vertex-vpc-router" {
 
 
 resource "google_compute_router_nat" "vertex-nat" {
-  name                               = "vertex-nat"
-  project                            = google_project.vertex-project.project_id
-  router                             = google_compute_router.vertex-vpc-router.name
-  region                             = var.region #default: us-central1
-  nat_ip_allocate_option             = "AUTO_ONLY"
-  source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
-  enable_dynamic_port_allocation     = true
+  name                                = "vertex-nat"
+  project                             = google_project.vertex-project.project_id
+  router                              = google_compute_router.vertex-vpc-router.name
+  region                              = var.region #default: us-central1
+  nat_ip_allocate_option              = "AUTO_ONLY"
+  source_subnetwork_ip_ranges_to_nat  = "ALL_SUBNETWORKS_ALL_IP_RANGES"
+  enable_dynamic_port_allocation      = true
+  enable_endpoint_independent_mapping = false
 
   log_config {
     enable = true

@@ -150,7 +150,7 @@ default       = "GMEK"
 variable "no_public_ip" {
 type          = bool
 description   = "No public IP will be assigned to this instance"
-default       = false 
+default       = true
 }
 
 variable "no_proxy_access" {

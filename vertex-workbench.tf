@@ -66,7 +66,7 @@ However the terraform would look something like this:
   no_remove_data_disk = var.no_remove_data_disk #default: false
   disk_encryption     = var.disk_encryption #default: GMEK
 
-  no_public_ip    = var.no_public_ip #default: false
+  no_public_ip    = var.no_public_ip #default: true
   no_proxy_access = var.no_proxy_access #default: false
 
   network = google_compute_network.vpc_network.id
