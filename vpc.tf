@@ -25,9 +25,9 @@ resource "google_compute_network" "vpc_network" {
 resource "google_compute_subnetwork" "securevertex-subnet-a" {
             project  =  google_project.vertex-project.project_id
             name                          = "securevertex-subnet-a"
-            ip_cidr_range                 = "10.10.10.0/24"
+            ip_cidr_range                 = "10.10.10.0/28"
             region                        = var.region #default: us-central1
-            private_ip_google_access      = "false"
+            private_ip_google_access      = "true"
             network                       = google_compute_network.vpc_network.name
             log_config {            
                 aggregation_interval      = "INTERVAL_30_SEC"
@@ -36,71 +36,24 @@ resource "google_compute_subnetwork" "securevertex-subnet-a" {
         }
 }        
 
- resource "google_compute_subnetwork" "securevertex-subnet-b" {
-            project                       =  google_project.vertex-project.project_id
-            name                          = "securevertex-subnet-b"
-            ip_cidr_range                 = "10.10.20.0/24"
-            region                        = var.region #default: us-central1
-            private_ip_google_access      = "false"
-            network                       = google_compute_network.vpc_network.name
-            log_config {            
-                aggregation_interval      = "INTERVAL_30_SEC"
-                flow_sampling             = 0.7
-                metadata                  = "INCLUDE_ALL_METADATA"
-                }
- }
-    
-resource "google_compute_firewall" "egress" {
-  project            = google_project.vertex-project.project_id
-  name               = "deny-all-egress"
-  description        = "Block all egress"
-  network            = google_compute_network.vpc_network.name
-  priority           = 1000
-  direction          = "EGRESS"
-  destination_ranges = ["0.0.0.0/0"]
-  deny {
-    protocol = "tcp"
+resource "google_compute_router" "vertex-vpc-router" {
+  name    = "vertex-vpc-router"
+  network = google_compute_network.vpc_network.name
+  region = var.region  #default: us-central1
+  project  =  google_project.vertex-project.project_id
+}  
+
+
+resource "google_compute_router_nat" "vertex-nat" {
+  name                               = "vertex-nat"
+  router                             = google_compute_router.vertex-vpc-router.name
+  region                             = var.region #default: us-central1
+  nat_ip_allocate_option             = "AUTO_ONLY"
+  source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
+  enable_dynamic_port_allocation     = true
+
+  log_config {
+    enable = true
+    filter = "ERRORS_ONLY"
   }
 }
-
-resource "google_compute_firewall" "ingress" {
-  project       = google_project.vertex-project.project_id
-  name          = "deny-all-ingress"
-  description   = "Block all Ingress"
-  network       = google_compute_network.vpc_network.name
-  priority      = 1000
-  direction     = "INGRESS"
-  source_ranges = ["0.0.0.0/0"]
-  deny {
-    protocol = "tcp"
-  }
-}
-
-resource "google_compute_firewall" "googleapi_egress" {
-  project            = google_project.vertex-project.project_id
-  name               = "allow-googleapi-egress"
-  description        = "Allow connectivity to storage"
-  network            = google_compute_network.vpc_network.name
-  priority           = 999
-  direction          = "EGRESS"
-  destination_ranges = ["199.36.153.8/30"]
-  allow {
-    protocol = "tcp"
-    ports    = ["443", "8080", "80"]
-  }
-}
-
-resource "google_compute_firewall" "www_egress" {
-  project            = google_project.vertex-project.project_id
-  name               = "allow-www-egress"
-  description        = "Allow connectivity to web"
-  network            = google_compute_network.vpc_network.name
-  priority           = 998
-  direction          = "EGRESS"
-  destination_ranges = ["0.0.0.0/0"]
-  allow {
-    protocol = "tcp"
-    ports    = ["443"]
-  }
-}
-
