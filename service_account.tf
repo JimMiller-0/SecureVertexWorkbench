@@ -38,10 +38,10 @@ resource "google_service_account" "vpc-sc-tf-sa" {
   display_name = "VPC-SC Terraform Service Account"
 }
 
-resource "google_project_iam_member" "vpc-sc-tf-iam" {
+resource "google_organization_iam_member" "vpc-sc-tf-iam" {
   for_each = toset(var.vpc-tf-roles) #default: ["roles/serviceusage.serviceUsageAdmin", "roles/accesscontextmanager.policyAdmin", "roles/resourcemanager.organizationViewer", "roles/iam.organizationRoleViewer"]
 
-  project = google_project.vertex-project.project_id
+  org_id  = var.organization_id
   role    = each.value
   member  = "serviceAccount:${google_service_account.vpc-sc-tf-sa.email}"
 
