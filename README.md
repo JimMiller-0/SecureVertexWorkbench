@@ -47,6 +47,7 @@ From the root folder of this repo, run the following commands:
 ```
 export TF_VAR_organization_id=[YOUR_ORGANIZATION_ID]
 export TF_VAR_billing_account=[YOUR_PROJECT_ID]
+export TF_VAR_ip_allow=[YOUR_IP_ADDRESS]
 terraform init
 terraform apply
 ```
