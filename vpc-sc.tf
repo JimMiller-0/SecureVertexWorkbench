@@ -1,12 +1,10 @@
 resource "google_access_context_manager_access_policy" "default" {
   count = var.create_default_access_policy ? 1 : 0
-  provider = google.service
   parent = "organizations/${var.organization_id}"
   title  = "Default Org Access Policy"
 }
 
 resource "google_access_context_manager_access_policy" "vertex_project_policy" {
-  provider = google.service
   parent = "organizations/${var.organization_id}"
   title  = "vertex project policy"
   scopes = ["projects/${google_project.vertex-project.project_id}"]
