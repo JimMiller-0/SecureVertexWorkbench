@@ -46,3 +46,8 @@ resource "google_organization_iam_member" "vpc-sc-tf-iam" {
   member  = "serviceAccount:${google_service_account.vpc-sc-tf-sa.email}"
 
 }
+
+resource "time_sleep" "wait_90_seconds_tf_sa" {
+  depends_on      = [google_service_account.vpc-sc-tf-sa, google_organization_iam_member.vpc-sc-tf-iam]
+  create_duration = "90s"
+}
