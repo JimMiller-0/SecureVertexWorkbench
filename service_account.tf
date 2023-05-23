@@ -31,3 +31,18 @@ resource "google_project_iam_member" "sa_iam" {
   member  = "serviceAccount:${google_service_account.sa.email}"
 
 }
+
+resource "google_service_account" "vpc-sc-tf-sa" {
+  project = google_project.vertex-project.project_id
+  account_id   = "vpc-sc-tf-sa"
+  display_name = "VPC-SC Terraform Service Account"
+}
+
+resource "google_project_iam_member" "vpc-sc-tf-iam" {
+  for_each = toset(var.vpc-tf-roles) #default: ["roles/serviceusage.serviceUsageAdmin", "roles/accesscontextmanager.policyAdmin", "roles/resourcemanager.organizationViewer", "roles/iam.organizationRoleViewer"]
+
+  project = google_project.vertex-project.project_id
+  role    = each.value
+  member  = "serviceAccount:${google_service_account.vpc-sc-tf-sa.email}"
+
+}

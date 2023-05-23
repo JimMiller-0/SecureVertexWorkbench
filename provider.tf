@@ -17,13 +17,10 @@
 ##  This demo code is not built for production workload ##
 
 
-terraform {
-  required_version = ">= 0.13"
+provider "google" {
+}
 
-  required_providers {
-    google = {
-    }
-
-  }
-
+provider "google" {
+    alias = "service"
+    impersonate_service_account = google_service_account.vpc-sc-tf-sa.email
 }

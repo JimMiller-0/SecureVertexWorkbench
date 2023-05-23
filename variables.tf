@@ -74,6 +74,11 @@ variable "roles" {
   default     = ["roles/compute.admin", "roles/iam.serviceAccountUser"]
 }
 
+variable "vpc-tf-roles" {
+  type        = list(string)
+  description = "The roles that will be granted to the service account."
+  default     = ["roles/serviceusage.serviceUsageAdmin", "roles/accesscontextmanager.policyAdmin", "roles/resourcemanager.organizationViewer", "roles/iam.organizationRoleViewer"]
+}
 variable "workbench_name" {
 type          = string
 description   = "name for workbench instance"
