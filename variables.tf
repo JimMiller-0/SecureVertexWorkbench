@@ -11,6 +11,10 @@ variable "billing_account" {
  type        = string
  description = "billing account required"
 }
+variable "ip_allow" {
+ type        = string
+ description = "IP address to add to the allow list for VPC Service Controls. this IP will be the only IP allowed to connect to Vertex"
+}
 
 
 /*****************************
@@ -35,7 +39,7 @@ variable "folder_id" {
 variable "enable_apis" {
   description = "Which APIs to enable for this project."
   type        = list(string)
-  default     = ["compute.googleapis.com", "cloudbilling.googleapis.com", "iam.googleapis.com", "notebooks.googleapis.com", "dns.googleapis.com", "artifactregistry.googleapis.com", "storage.googleapis.com", "cloudresourcemanager.googleapis.com", "serviceusage.googleapis.com"]
+  default     = ["compute.googleapis.com", "cloudbilling.googleapis.com", "iam.googleapis.com", "notebooks.googleapis.com", "aiplatform.googleapis.com", "dns.googleapis.com", "artifactregistry.googleapis.com", "storage.googleapis.com", "cloudresourcemanager.googleapis.com", "serviceusage.googleapis.com", "logging.googleapis.com", "accesscontextmanager.googleapis.com"]
 }
 
 variable "labels" {
@@ -158,6 +162,19 @@ type          = bool
 description   = "The notebook instance will not register with the proxy"
 default       = false 
 }
+
+variable "create_default_access_policy" {
+ type        = bool
+ default     = false
+ description = "Whether a default access policy needs to be created for the organization. If one already exists, this should be set to false."
+}
+
+variable "restricted_apis" {
+  description = "Which APIs to enable for this project."
+  type        = list(string)
+  default     = ["compute.googleapis.com", "notebooks.googleapis.com", "dns.googleapis.com", "artifactregistry.googleapis.com", "storage.googleapis.com", "logging.googleapis.com", "aiplatform.googleapis.com"]
+}
+
 
 
 /*****************************

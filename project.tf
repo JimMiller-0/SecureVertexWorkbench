@@ -34,7 +34,7 @@ resource "random_id" "random_suffix" {
   byte_length = 4
 }
 
-// Enable the requested APIs. APIs are set in the tfvars file
+// Enable the requested APIs. APIs are set in the variables file
 resource "google_project_service" "gcp_apis" {
   count   = length(var.enable_apis)
   project = google_project.vertex-project.project_id
@@ -63,5 +63,5 @@ module "org-policy-vmExternalIpAccess" {
 
 resource "time_sleep" "wait_for_org_policy" {
   depends_on      = [module.org-policy-requireShieldedVm, module.org-policy-vmExternalIpAccess, google_project_service.gcp_apis]
-  create_duration = "180s"
+  create_duration = "300s"
 }
