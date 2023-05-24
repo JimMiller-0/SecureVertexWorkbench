@@ -1,9 +1,9 @@
 # SecureVertexWorkbench
 
-```
+
 This is not an officially supported Google product.
-This code creates PoC demo environment for CSA Secure Vertex AI Workbench. This demo code is not built for production workload. 
-```
+This code creates a secure demo environment for Vertex AI Workbench. This demo code is not built for production workload. 
+
 
 # Demo Guide
 This Cloud Security Architecture uses terraform to setup Vertex AI Wrokbench demo in a project and underlying infrastructure using Google Cloud Services like [VPC Service Controls](https://cloud.google.com/vpc-service-controls), [Cloud Firewall](https://cloud.google.com/firewall), [Identity and Access Management](https://cloud.google.com/iam), [Cloud Compute Engine](https://cloud.google.com/compute) and [Cloud Logging](https://cloud.google.com/logging).
@@ -41,6 +41,8 @@ cd SecureVertexWorkbench
 ```
 
 ### 2. Deploy the infrastructure using Terraform
+
+**Note:** terraform must be deployed from a client with the same external IP given in the ip_allow variable below. If it's different the VPC Service controsl will be deployed and lock out terraform from completing the build
 
 From the root folder of this repo, run the following commands:
 
