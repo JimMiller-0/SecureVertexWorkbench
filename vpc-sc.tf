@@ -27,7 +27,7 @@ resource "google_access_context_manager_access_levels" "vertex_ip_allow" {
     title  = "vertex_ip_allow"
     basic {
       conditions {
-        ip_subnetworks = ["${var.ip_allow}/32"]
+        ip_subnetworks = var.ip_allow
       }
     }
   }
@@ -49,6 +49,21 @@ resource "google_access_context_manager_service_perimeter" "restrict_vertex_proj
     access_levels = ["accessPolicies/${google_access_context_manager_access_policy.vertex_project_policy.name}/accessLevels/vertex_ip_allow"]
     vpc_accessible_services {
         enable_restriction = false        
+    }
+    ingress_policies {
+        ingress_from {
+            # identities = ["user:${var.user_id}", "serviceAccount:${google_service_account.terraform_service_account.email}"]
+            sources {
+                access_level = google_access_context_manager_access_level.vertex_ip_allow.name
+            }
+            identity_type = "ANY_IDENTITY"
+        }
+        ingress_to { 
+            resources = ["*"]
+            operations {
+                service_name = "*"
+            } 
+        }
     }
 
   }

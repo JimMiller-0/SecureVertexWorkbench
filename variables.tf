@@ -12,7 +12,7 @@ variable "billing_account" {
  description = "billing account required"
 }
 variable "ip_allow" {
- type        = string
+ type        = list(string)
  description = "IP address to add to the allow list for VPC Service Controls. this IP will be the only IP allowed to connect to Vertex"
 }
 
