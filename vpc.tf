@@ -20,6 +20,7 @@ resource "google_compute_network" "vpc_network" {
     name = "securevertex-vpc"
     routing_mode = "REGIONAL"
     auto_create_subnetworks = false
+    depends_on = [time_sleep.wait_for_org_policy]  
 }
 
 resource "google_compute_subnetwork" "securevertex-subnet-a" {
@@ -34,6 +35,7 @@ resource "google_compute_subnetwork" "securevertex-subnet-a" {
                 flow_sampling             = 0.7
                 metadata                  = "INCLUDE_ALL_METADATA"
         }
+            depends_on = [google_compute_network.vpc_network]  
 }        
 
 resource "google_compute_router" "vertex-vpc-router" {
@@ -41,6 +43,7 @@ resource "google_compute_router" "vertex-vpc-router" {
   network = google_compute_network.vpc_network.name
   region = var.region  #default: us-central1
   project  =  google_project.vertex-project.project_id
+  depends_on = [google_compute_network.vpc_network]  
 }  
 
 
@@ -58,4 +61,5 @@ resource "google_compute_router_nat" "vertex-nat" {
     enable = true
     filter = "ERRORS_ONLY"
   }
+  depends_on = [google_compute_network.vpc_network]  
 }

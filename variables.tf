@@ -11,10 +11,7 @@ variable "billing_account" {
  type        = string
  description = "billing account required"
 }
-variable "ip_allow" {
- type        = list(string)
- description = "IP address to add to the allow list for VPC Service Controls. this IP will be the only IP allowed to connect to Vertex"
-}
+
 
 
 /*****************************
@@ -208,6 +205,10 @@ variable "create_default_access_policy" {
  description = "Whether a default access policy needs to be created for the organization. If one already exists, this should be set to false."
 }
 
+variable "ip_allow" {
+ type        = list(string)
+ description = "IP address to add to the allow list for VPC Service Controls. this IP will be the only IP allowed to connect to Vertex"
+}
 
 *****************************/
 

@@ -20,7 +20,9 @@
 provider "google" {
 }
 
+/*  -- here to enable VPC-SC deployment option
 provider "google" {
     alias = "service"
     impersonate_service_account = google_service_account.vpc-sc-tf-sa.email
 }
+*/

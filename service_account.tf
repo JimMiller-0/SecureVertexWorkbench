@@ -32,6 +32,7 @@ resource "google_project_iam_member" "sa_iam" {
 
 }
 
+/*
 resource "google_service_account" "vpc-sc-tf-sa" {
   project = google_project.vertex-project.project_id
   account_id   = "vpc-sc-tf-sa"
@@ -51,3 +52,5 @@ resource "time_sleep" "wait_90_seconds_tf_sa" {
   depends_on      = [google_service_account.vpc-sc-tf-sa, google_organization_iam_member.vpc-sc-tf-iam]
   create_duration = "90s"
 }
+
+*/

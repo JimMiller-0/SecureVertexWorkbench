@@ -83,7 +83,7 @@ However the terraform would look something like this:
   }
 
 
-depends_on = [google_storage_bucket.bucket, time_sleep.wait_for_org_policy]  
+depends_on = [google_storage_bucket.bucket, time_sleep.wait_for_org_policy, google_service_account.sa]  
 }
 
 resource "null_resource" "set_secure_boot" {
