@@ -85,6 +85,7 @@ However the terraform would look something like this:
     serial-port-enable         = "FALSE"
     block-project-ssh-keys     = "TRUE"
     notebook-upgrade-schedule  = var.update-schedule #default: "0 7 * * SUN" = weekly Sunday morning 2am US Eastern
+    gcs-data-bucket = google_storage_bucket.bucket.name #enables jupyter notebook backups
   }
 
 
