@@ -32,6 +32,8 @@ resource "google_notebooks_instance" "vertex_workbench_instance" {
     project      = var.source_image_project #default: deeplearning-platform-release
     image_family = var.source_image_family #default: common-cpu-notebooks-ubuntu-2004
   }
+  instance_owners = [ google_service_account.sa.name ]
+  service_account = google_service_account.sa.name
 
   shielded_instance_config {
     enable_secure_boot          = var.secure_boot #default: true
@@ -80,6 +82,9 @@ However the terraform would look something like this:
     notebook-disable-root      = "true"
     notebook-disable-downloads = "true"
     notebook-disable-nbconvert = "true"
+    serial-port-enable         = "FALSE"
+    block-project-ssh-keys     = "TRUE"
+    notebook-upgrade-schedule  = var.update-schedule #default: "0 7 * * SUN" = weekly Sunday morning 2am US Eastern
   }
 
 

@@ -177,7 +177,11 @@ variable "restricted_apis" {
   default     = ["compute.googleapis.com", "notebooks.googleapis.com", "dns.googleapis.com", "artifactregistry.googleapis.com", "storage.googleapis.com", "logging.googleapis.com", "aiplatform.googleapis.com"]
 }
 
-
+variable "update-schedule" {
+type          = string
+description   = "The time period you specify is stored as a notebook-upgrade-schedule metadata entry, in unix-cron format, Greenwich Mean Time (GMT)."
+default       = "0 7 * * SUN"
+}
 
 /*****************************
 NOT USED IN THIS TEMPLATE BUT ARE CONFIGURABLE FOR VERTEX AI WORKBENCH
