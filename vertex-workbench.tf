@@ -32,8 +32,8 @@ resource "google_notebooks_instance" "vertex_workbench_instance" {
     project      = var.source_image_project #default: deeplearning-platform-release
     image_family = var.source_image_family #default: common-cpu-notebooks-ubuntu-2004
   }
-  instance_owners = [ google_service_account.sa.name ]
-  service_account = google_service_account.sa.name
+  instance_owners = [ google_service_account.sa.email]
+  service_account = google_service_account.sa.email
 
   shielded_instance_config {
     enable_secure_boot          = var.secure_boot #default: true
